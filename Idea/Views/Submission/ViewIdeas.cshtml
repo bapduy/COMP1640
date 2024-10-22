@@ -32,38 +32,41 @@
 
 @if ((DateTime.Now - Model.Deadline_1).TotalMilliseconds <= 0)
 {
-    <div>
-        <a asp-action="AddIdea" asp-route-submissionid="@Model.Id" class="btn btn-success">Add Idea</a>
+    <div class="mb-3">
+        <a asp-action="AddIdea" asp-route-submissionid="@Model.Id" class="btn btn-success" style="margin-right: 20px;">Add Idea</a>
     </div>
 }
 
 <table class="table">
-    <tr>
-        <th>Title</th>
-        <th>Brief</th>
-        <th>Views</th>
-        <th>Like</th>
-        <th>Dislike</th>
-        <th></th>
-    </tr>
-
-    @foreach (var idea in Ideas)
-    {
+    <thead>
         <tr>
-            <td>@idea.Title</td>
-            <td>@idea.Brief</td>
-            <td>@idea.View</td>
-            <td>@idea.Reactions.Where(r => r.Type == 1).Count()</td>
-            <td>@idea.Reactions.Where(r => r.Type == 2).Count()</td>
-            <td>
-                <a asp-action="IdeaDetails" class="btn btn-primary" asp-route-id="@idea.Id">Details</a>
-                <a asp-action="Like" class="btn btn-primary" asp-route-ideaid="@idea.Id">Like</a>
-                <a asp-action="Dislike" class="btn btn-primary" asp-route-ideaid="@idea.Id">Dislike</a>
-            </td>
+            <th>Title</th>
+            <th>Brief</th>
+            <th>Views</th>
+            <th>Like</th>
+            <th>Dislike</th>
+            <th>Actions</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var idea in Ideas.Select((idea, index) => new { idea, index }))
+        {
+            <tr style="background-color:@(idea.index % 2 == 0 ? "#f9f9f9" : "#fff");">
+                <td>@idea.idea.Title</td>
+                <td>@idea.idea.Brief</td>
+                <td>@idea.idea.View</td>
+                <td>@idea.idea.Reactions.Where(r => r.Type == 1).Count()</td>
+                <td>@idea.idea.Reactions.Where(r => r.Type == 2).Count()</td>
+                <td class="d-flex justify-content-start">
+                    <a asp-action="IdeaDetails" class="btn btn-primary btn-sm" asp-route-id="@idea.idea.Id" style="margin-right: 20px;">Details</a>
+                    <a asp-action="Like" class="btn btn-primary btn-sm" asp-route-ideaid="@idea.idea.Id" style="margin-right: 20px;">Like</a>
+                    <a asp-action="Dislike" class="btn btn-primary btn-sm" asp-route-ideaid="@idea.idea.Id">Dislike</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary" style="margin-top: 20px;">Back to Staff Submission Overview</a>
 </div>

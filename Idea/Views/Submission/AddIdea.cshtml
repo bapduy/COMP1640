@@ -10,53 +10,57 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddIdea" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom: 10px;"></div>
 
-            <input type="hidden" asp-for="SubmissionId" class="form-control" value="@ViewBag.SubmissionId">
-            <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId">
-            <input type="hidden" asp-for="View" class="form-control" value="0" />
-            <input type="hidden" asp-for="FilePath" value="" class="form-control" />
+            <input type="hidden" asp-for="SubmissionId" class="form-control" value="@ViewBag.SubmissionId" style="margin-bottom: 10px;">
+            <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" style="margin-bottom: 10px;">
+            <input type="hidden" asp-for="View" class="form-control" value="0" style="margin-bottom: 10px;" />
+            <input type="hidden" asp-for="FilePath" value="" class="form-control" style="margin-bottom: 10px;" />
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 10px;">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            
+            <div class="form-group" style="margin-bottom: 10px;">
                 <label asp-for="Brief" class="control-label"></label>
                 <input asp-for="Brief" class="form-control" />
                 <span asp-validation-for="Brief" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            
+            <div class="form-group" style="margin-bottom: 10px;">
                 <label asp-for="Content" class="control-label"></label>
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 10px;">
                 <label class="control-label">File</label>
                 <input type="file" name="file" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 10px;">
                 <input type="checkbox" name="isAcceptTerms" value="True" />
                 Term ABC...
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 10px;">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 10px;">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="ViewIdeas" asp-route-submissionid="@ViewBag.SubmissionId">Back to List</a>
+<div class="row">
+    <div class="col-md-4 text-center mt-3">
+        <a asp-action="ViewIdeas" asp-route-submissionid="@ViewBag.SubmissionId" class="btn btn-secondary">Back to List of Ideas</a>
+    </div>
 </div>
 
 @section Scripts {

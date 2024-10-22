@@ -113,7 +113,7 @@ namespace Idea.Controllers
         {
             var path = "";
 
-            if (file && file.Length > 0)
+            if (file != null && file.Length > 0)
             {
                 // file / submission_{id} / idea_{id}
                 path = Path.Combine("file", $"submission_{submissionId}", $"idea_{ideaId}");
