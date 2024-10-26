@@ -600,3 +600,4 @@
 /Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/obj/Debug/net6.0/Idea.csproj.Up2Date
 /Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/obj/Debug/net6.0/Idea.genruntimeconfig.cache
 /Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/obj/Debug/net6.0/ref/Idea.dll
+/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/obj/Debug/net6.0/Idea.sourcelink.json
