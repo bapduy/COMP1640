@@ -5,7 +5,7 @@
 }
 
 <style>
-    body{
+    body {
         background-color: #cdf2ee;
     }
 </style>
@@ -25,10 +25,14 @@
 <div class="container">
     <h5 class="mt-4 mb-4 text-center">@ViewData["Title"] (<em>@Model.Id</em>)</h5>
 
-    <form asp-action="Edit" class="row">
+    <!-- Main Form -->
+    <form id="editRoleForm" asp-action="Edit" method="post" class="row">
         <div class="col-12 text-center mb-5">
             <a asp-action="Index" class="btn btn-success">Back</a>
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <!-- Trigger Modal Button -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">
+                Save
+            </button>
         </div>
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -37,7 +41,7 @@
         <input type="hidden" asp-for="ConcurrencyStamp" />
 
         <div class="col-12">
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
@@ -46,4 +50,27 @@
     </form>
 </div>
 
-@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmSaveModal" tabindex="-1" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmSaveModalLabel">Confirm Save</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to save the changes to this role?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- Submit Form via Modal -->
+                <button type="submit" class="btn btn-primary" form="editRoleForm">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

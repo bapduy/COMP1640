@@ -3,22 +3,35 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav ms-auto">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a style="background-color: black; color: white; padding: 10px 20px; border-radius: 30px; text-align: center; font-size: 16px; text-decoration: none; display: inline-block;" 
-           asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <li class="nav-item">
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        </li>
+    }
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                Hello @User.Identity?.Name!
+            </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" 
+                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a style="background-color: black; color: white; padding: 10px 20px; border-radius: 30px; 
+                      text-align: center; font-size: 16px; text-decoration: none;" 
+               asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>

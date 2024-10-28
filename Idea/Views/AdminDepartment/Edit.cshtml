@@ -1,31 +1,36 @@
 @model Idea.Models.Department
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Department";
 }
 
 <style>
-    body{
+    body {
         background-color: #cdf2ee;
     }
 </style>
 
-<h1>Edit</h1>
+<h1>Edit Department</h1>
 
-<h4>Department</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <!-- Main Form -->
+        <form id="editForm" asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom: 20px;"></div>
             <input type="hidden" asp-for="Id" />
+
             <div class="form-group" style="margin-bottom: 20px;">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
             <div class="form-group" style="margin-bottom: 20px;">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <!-- Button to Trigger the Modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmEditModal">
+                    Save Changes
+                </button>
             </div>
         </form>
     </div>
@@ -35,6 +40,27 @@
     <a asp-action="Index" class="btn btn-secondary">Back to Department Overview</a>
 </div>
 
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmEditModal" tabindex="-1" aria-labelledby="confirmEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmEditModalLabel">Confirm Edit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to save the changes to this department?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- Submit Button Inside Modal -->
+                <button type="submit" class="btn btn-primary" form="editForm">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -5,59 +5,61 @@
 }
 
 <style>
-    body{
+    body {
         background-color: #cdf2ee;
     }
 </style>
 
 <h1>Add Idea</h1>
-
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddIdea" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom: 10px;"></div>
+        <!-- Main Form -->
+        <form id="addIdeaForm" asp-action="AddIdea" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <input type="hidden" asp-for="SubmissionId" class="form-control" value="@ViewBag.SubmissionId" style="margin-bottom: 10px;">
-            <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" style="margin-bottom: 10px;">
-            <input type="hidden" asp-for="View" class="form-control" value="0" style="margin-bottom: 10px;" />
-            <input type="hidden" asp-for="FilePath" value="" class="form-control" style="margin-bottom: 10px;" />
+            <input type="hidden" asp-for="SubmissionId" class="form-control" value="@ViewBag.SubmissionId">
+            <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId">
+            <input type="hidden" asp-for="View" class="form-control" value="0">
+            <input type="hidden" asp-for="FilePath" value="" class="form-control">
 
-            <div class="form-group" style="margin-bottom: 10px;">
+            <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            
-            <div class="form-group" style="margin-bottom: 10px;">
+
+            <div class="form-group mb-3">
                 <label asp-for="Brief" class="control-label"></label>
                 <input asp-for="Brief" class="form-control" />
                 <span asp-validation-for="Brief" class="text-danger"></span>
             </div>
-            
-            <div class="form-group" style="margin-bottom: 10px;">
+
+            <div class="form-group mb-3">
                 <label asp-for="Content" class="control-label"></label>
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
-            <div class="form-group" style="margin-bottom: 10px;">
+            <div class="form-group mb-3">
                 <label class="control-label">File</label>
                 <input type="file" name="file" class="form-control" />
             </div>
 
-            <div class="form-group" style="margin-bottom: 10px;">
-                <input type="checkbox" name="isAcceptTerms" value="True" />
-                Term ABC...
+            <div class="form-group mb-3">
+                <input type="checkbox" name="isAcceptTerms" value="True" /> Term ABC...
             </div>
 
-            <div class="form-group" style="margin-bottom: 10px;">
+            <div class="form-group mb-3">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
 
-            <div class="form-group" style="margin-bottom: 10px;">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="text-center">
+                <!-- Trigger Modal Button -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmCreateModal">
+                    Create
+                </button>
             </div>
         </form>
     </div>
@@ -65,10 +67,33 @@
 
 <div class="row">
     <div class="col-md-4 text-center mt-3">
-        <a asp-action="ViewIdeas" asp-route-submissionid="@ViewBag.SubmissionId" class="btn btn-secondary">Back to List of Ideas</a>
+        <a asp-action="ViewIdeas" asp-route-submissionid="@ViewBag.SubmissionId" class="btn btn-secondary">
+            Back to List of Ideas
+        </a>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmCreateModal" tabindex="-1" aria-labelledby="confirmCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmCreateModalLabel">Confirm Create</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to create this idea?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- Submit the form from the modal -->
+                <button type="submit" class="btn btn-primary" form="addIdeaForm">Confirm</button>
+            </div>
+        </div>
     </div>
 </div>
 
 @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
