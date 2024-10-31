@@ -50,10 +50,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5DYXRlZ29yeS9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/AdminCategory/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5DYXRlZ29yeS9EZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/AdminCategory/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5DYXRlZ29yeS9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,10 +66,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5EZXBhcnRtZW50L0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/AdminDepartment/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5EZXBhcnRtZW50L0RlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/AdminDepartment/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5EZXBhcnRtZW50L0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -88,10 +80,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/AdminSubmission/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5TdWJtaXNzaW9uL0NyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/AdminSubmission/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5TdWJtaXNzaW9uL0RlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/AdminSubmission/Details.cshtml]
@@ -116,10 +104,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/Role/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZS9DcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/Role/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUm9sZS9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/Role/Edit.cshtml]
@@ -164,10 +148,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/User/AddRole.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9BZGRSb2xlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/User/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/duyngo/Desktop/FGW-2024B-COMP1640/Idea/Views/User/Details.cshtml]

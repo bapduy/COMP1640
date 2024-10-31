@@ -5,8 +5,89 @@
 }
 
 <style>
-    body{
+    body {
         background-color: #cdf2ee;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .role-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    .role-item {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background-color: #f0f8ff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        padding: 15px;
+        overflow: hidden;
+    }
+
+    .role-item:hover {
+        transform: scale(1.1);
+    }
+
+    .role-name {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .role-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .role-actions a {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        text-align: center;
+        width: 80px;
+    }
+
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .create-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 8px;
+        z-index: 1000;
     }
 </style>
 
@@ -20,46 +101,73 @@
 </nav>
 
 <div class="text-center mt-4">
-    <a class="btn btn-success" asp-action="Create">Create New</a>
+    <a class="btn btn-success create-button" asp-action="Create">Create New</a>
 </div>
 
-<div class="row d-flex align-items-center text-center font-weight-bold mt-5">
-    <div class="col-2">@Html.DisplayNameFor(model => model.Id)</div>
-    <div class="col-2">@Html.DisplayNameFor(model => model.Name)</div>
-    <div class="col-5">Concurrency Stamp</div>
-    <div class="col-3">Actions</div>
-</div>
+<h1>Role Index</h1>
 
-<hr />
-
-@foreach (var item in Model.Select((value, index) => new { Value = value, Index = index }))
-{
-    <div class="row d-flex align-items-center text-center" style="background-color:@(item.Index % 2 == 0 ? "#f9f9f9" : "#fff");">
-        <div class="col-2">
-            @Html.DisplayFor(modelItem => item.Value.Id)
-        </div>
-
-        <div class="col-2">
-            @Html.DisplayFor(modelItem => item.Value.Name)
-        </div>
-
-        <div class="col-5">
-            @Html.DisplayFor(modelItem => item.Value.ConcurrencyStamp)
-        </div>
-
-        <div class="col-3 d-flex justify-content-center">
-            <div class="mr-2">
-                <a asp-action="Delete" asp-route-id="@item.Value.Id" class="btn btn-danger btn-sm d-flex align-items-center rounded-0" style="margin-right: 20px;">
-                    <span class='material-icons'>remove</span>
-                </a>
+<div class="role-container">
+    @foreach (var item in Model) {
+        <div class="role-item">
+            <div class="role-name">
+                @Html.DisplayFor(modelItem => item.Name)
             </div>
-            <div class="mr-2">
-                <a asp-action="Edit" asp-route-id="@item.Value.Id" class="btn btn-success btn-sm d-flex align-items-center rounded-0" style="margin-right: 20px;">
-                    <span class="material-icons">edit</span>
+            <div>
+                <strong>ID:</strong> @Html.DisplayFor(modelItem => item.Id)
+            </div>
+            <div>
+                <strong>Stamp:</strong> @Html.DisplayFor(modelItem => item.ConcurrencyStamp)
+            </div>
+            <div class="role-actions">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">
+                    <span class="material-icons">edit</span> Edit
                 </a>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" 
+                        data-bs-target="#deleteConfirmationModal" 
+                        data-role-id="@item.Id" data-role-name="@item.Name">
+                    <span class="material-icons">remove</span> Delete
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal HTML -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the role <strong id="roleNameToDelete"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteRoleForm" asp-action="Delete" method="post">
+                    <input type="hidden" name="Id" id="roleIdToDelete" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <hr />
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var deleteConfirmationModal = document.getElementById('deleteConfirmationModal');
+        deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var roleId = button.getAttribute('data-role-id');
+            var roleName = button.getAttribute('data-role-name');
+
+            var modalTitle = deleteConfirmationModal.querySelector('.modal-body #roleNameToDelete');
+            var modalInput = deleteConfirmationModal.querySelector('.modal-footer #roleIdToDelete');
+
+            modalTitle.textContent = roleName;
+            modalInput.value = roleId;
+        });
+    </script>
 }

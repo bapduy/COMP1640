@@ -48,3 +48,52 @@ button.accept-policy[b-0jnrkckud8] {
   line-height: 60px;
 }
 
+.sidebar[b-0jnrkckud8] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  padding-bottom: 0;
+}
+
+.nav-section[b-0jnrkckud8] {
+  padding-top: 1rem;
+}
+
+html[b-0jnrkckud8], body[b-0jnrkckud8] {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.login-section[b-0jnrkckud8] {
+  padding: 15px;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-top: 2px solid #dee2e6;
+}
+
+footer[b-0jnrkckud8] {
+  padding: 10px;
+  background-color: #f1f1f1;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+}
+
+.footer-container[b-0jnrkckud8] {
+  margin-top: auto;
+}
+
+.content[b-0jnrkckud8] {
+  margin-left: 250px;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}

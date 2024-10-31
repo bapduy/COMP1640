@@ -1,42 +1,135 @@
 @model IEnumerable<Idea.Models.Department>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Department Overview";
 }
 
 <style>
-    body{
+    body {
         background-color: #cdf2ee;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .department-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    .department-item {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #f0f8ff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+
+    .department-item:hover {
+        transform: scale(1.1);
+    }
+
+    .department-actions {
+        margin-top: 10px;
+    }
+
+    .department-actions a {
+        margin: 5px;
+        text-decoration: none;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        border-radius: 12px;
+    }
+
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+    }
+
+    .create-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 8px;
+        z-index: 1000;
     }
 </style>
 
 <h1>Department Overview</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
+<a asp-action="Create" class="btn btn-primary create-button">Create New</a>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td class="text-end">
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" style="margin-right: 20px;color: green">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" style="margin-right: 20px; color: blue">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" style="color: red">Delete</a>
-            </td>
-        </tr>
+<div class="department-container">
+    @foreach (var item in Model) {
+        <div class="department-item">
+            <div>
+                <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+            </div>
+            <div class="department-actions">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" style="color: green;">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" style="color: blue;">Details</a>
+                <button class="btn btn-outline-primary btn-sm delete-btn" style="color: red;" data-id="@item.Id" data-name="@item.Name">Delete</button>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the department <strong id="departmentName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" id="deleteDepartmentId" name="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.delete-btn').click(function () {
+                const departmentId = $(this).data('id');
+                const departmentName = $(this).data('name');
+                $('#departmentName').text(departmentName);
+                $('#deleteDepartmentId').val(departmentId);
+                $('#deleteModal').modal('show');
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>

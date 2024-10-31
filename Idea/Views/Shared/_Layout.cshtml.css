@@ -47,3 +47,52 @@ button.accept-policy {
   line-height: 60px;
 }
 
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  padding-bottom: 0;
+}
+
+.nav-section {
+  padding-top: 1rem;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.login-section {
+  padding: 15px;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-top: 2px solid #dee2e6;
+}
+
+footer {
+  padding: 10px;
+  background-color: #f1f1f1;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+}
+
+.footer-container {
+  margin-top: auto;
+}
+
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}

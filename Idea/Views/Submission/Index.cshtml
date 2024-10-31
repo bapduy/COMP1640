@@ -5,60 +5,112 @@
 }
 
 <style>
-    body{
+    body {
         background-color: #cdf2ee;
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 36px;
+    }
+
+    .submission-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .submission-card {
+        width: 300px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        transition: transform 0.3s, background-color 0.3s;
+        overflow: hidden;
+    }
+
+    .submission-card.bg-success {
+        background-color: #d4edda;
+    }
+
+    .submission-card.bg-warning {
+        background-color: #fff3cd;
+    }
+
+    .submission-card.bg-danger {
+        background-color: #f8d7da;
+    }
+
+    .submission-card:hover {
+        transform: scale(1.05);
+    }
+
+    .submission-title {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .submission-deadlines {
+        text-align: center;
+    }
+
+    .submission-actions {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .btn {
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-size: 12px;
     }
 </style>
 
 <h1>Staff Submission Overview</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Deadline_1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Deadline_2)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            var bgColor = "bg-success";
+<div class="submission-container">
+    @foreach (var item in Model)
+    {
+        var bgColor = "bg-success";
 
-            if (item.Deadline_2 < DateTime.Now)
-            {
-                bgColor = "bg-danger";
-            }
-            else if (item.Deadline_1 < DateTime.Now)
-            {
-                bgColor = "bg-warning";
-            }
-            <tr class="@bgColor">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Deadline_1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Deadline_2)
-                </td>
-                <td>
-                    <a asp-action="ViewIdeas" asp-route-submissionid="@item.Id" class="btn btn-light">View Ideas</a>
-                    @if (User.IsInRole("Manager"))
-                    {
-                        <a asp-action="ExportZIP" asp-route-submissionid="@item.Id" class="btn btn-light">Export ZIP</a>
-                        <a asp-action="ExportExcel" asp-route-submissionid="@item.Id" class="btn btn-light">Export Excel</a>
-                    }
-                </td>
-            </tr>
+        if (item.Deadline_2 < DateTime.Now)
+        {
+            bgColor = "bg-danger";
         }
-    </tbody>
-</table>
+        else if (item.Deadline_1 < DateTime.Now)
+        {
+            bgColor = "bg-warning";
+        }
+
+        <div class="submission-card @bgColor">
+            <div class="submission-title">
+                @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <div class="submission-deadlines">
+                <p><strong>Deadline 1:</strong> @Html.DisplayFor(modelItem => item.Deadline_1)</p>
+                <p><strong>Deadline 2:</strong> @Html.DisplayFor(modelItem => item.Deadline_2)</p>
+            </div>
+            <div class="submission-actions">
+                <a asp-action="ViewIdeas" asp-route-submissionid="@item.Id" class="btn btn-light">View Ideas</a>
+                @if (User.IsInRole("Manager"))
+                {
+                    <a asp-action="ExportZIP" asp-route-submissionid="@item.Id" class="btn btn-light">Export ZIP</a>
+                    <a asp-action="ExportExcel" asp-route-submissionid="@item.Id" class="btn btn-light">Export Excel</a>
+                }
+            </div>
+        </div>
+    }
+</div>

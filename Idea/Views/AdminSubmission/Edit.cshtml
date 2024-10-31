@@ -6,50 +6,142 @@
 
 <style>
     body {
-        background-color: #cdf2ee;
+        background-color: #f0f5f9;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .edit-page {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, #e0e0e0, #f9f9f9);
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+    }
+
+    h1 {
+        margin-bottom: 30px;
+        font-size: 32px;
+        color: #333;
+    }
+
+    .form-group {
+        width: 60%;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+        border: 1px solid #d3d3d3;
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    }
+
+    .btn-container {
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .btn-secondary {
+        padding: 10px 20px;
+        background-color: #6c757d;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        transform: scale(1.05);
+    }
+
+    .modal-content {
+        border-radius: 12px;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .btn-close {
+        background-color: #f8f9fa;
+        border: none;
     }
 </style>
 
-<h1>Edit Submission</h1>
+<div class="edit-page">
+    <h1>Edit Submission</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <!-- Main Form -->
-        <form id="editForm" asp-action="Edit" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom: 20px;"></div>
-            <input type="hidden" asp-for="Id" />
+    <form id="editForm" asp-action="Edit" method="post" style="width: 100%;">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
 
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Submission Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label asp-for="Deadline_1" class="control-label"></label>
-                <input asp-for="Deadline_1" type="date" class="form-control" />
-                <span asp-validation-for="Deadline_1" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Deadline_1" class="control-label">First Deadline</label>
+            <input asp-for="Deadline_1" type="date" class="form-control" />
+            <span asp-validation-for="Deadline_1" class="text-danger"></span>
+        </div>
 
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label asp-for="Deadline_2" class="control-label"></label>
-                <input asp-for="Deadline_2" type="date" class="form-control" />
-                <span asp-validation-for="Deadline_2" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Deadline_2" class="control-label">Second Deadline</label>
+            <input asp-for="Deadline_2" type="date" class="form-control" />
+            <span asp-validation-for="Deadline_2" class="text-danger"></span>
+        </div>
 
-            <div class="form-group" style="margin-bottom: 20px;">
-                <!-- Button to Trigger Modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">
-                    Save Changes
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div style="margin-top: 20px;">
-    <a asp-action="Index" class="btn btn-secondary">Back to Submission Overview</a>
+        <div class="btn-container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSaveModal">
+                <span class="material-icons">save</span> Save Changes
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <span class="material-icons">arrow_back</span> Back to Submission Overview
+            </a>
+        </div>
+    </form>
 </div>
 
 <!-- Confirmation Modal -->
@@ -64,9 +156,8 @@
                 <p>Are you sure you want to save the changes to this submission?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <!-- Submit Button Inside Modal -->
-                <button type="submit" class="btn btn-primary" form="editForm">Confirm</button>
+                <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn-primary" form="editForm">Confirm</button>
             </div>
         </div>
     </div>
