@@ -5,6 +5,8 @@
     var Ideas = (List<NIdea>)ViewData["Ideas"];
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
 <style>
     body {
         background-color: #ffccff;
@@ -155,8 +157,12 @@
                     <td>@idea.idea.Reactions.Count(r => r.Type == 2)</td>
                     <td>
                         <a asp-action="IdeaDetails" class="btn btn-primary btn-sm" asp-route-id="@idea.idea.Id">Details</a>
-                        <a asp-action="Like" class="btn btn-primary btn-sm" asp-route-ideaid="@idea.idea.Id">Like</a>
-                        <a asp-action="Dislike" class="btn btn-primary btn-sm" asp-route-ideaid="@idea.idea.Id">Dislike</a>
+                        <a asp-action="Like" class="btn btn-primary btn-sm" asp-route-ideaid="@idea.idea.Id">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                        </a>
+                        <a asp-action="Dislike" class="btn btn-primary btn-sm" asp-route-ideaid="@idea.idea.Id">
+                            <i class="bi bi-hand-thumbs-down-fill"></i>
+                        </a>
                     </td>
                 </tr>
             }
