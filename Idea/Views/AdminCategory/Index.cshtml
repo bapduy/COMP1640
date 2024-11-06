@@ -49,11 +49,16 @@
 
     .category-actions {
         margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
     }
 
-    .category-actions a {
-        margin: 5px;
-        text-decoration: none;
+    .category-actions form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .btn {
@@ -89,8 +94,12 @@
                 <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
             </div>
             <div class="category-actions">
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" style="color: green;">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" style="color: blue;">Details</a>
+                <form asp-action="Edit" asp-route-id="@item.Id" method="get">
+                    <button type="submit" class="btn btn-outline-primary btn-sm" style="color: green;">Edit</button>
+                </form>
+                <form asp-action="Details" asp-route-id="@item.Id" method="get">
+                    <button type="submit" class="btn btn-outline-primary btn-sm" style="color: blue;">Details</button>
+                </form>
                 <button class="btn btn-outline-primary btn-sm delete-btn" style="color: red;"
                         data-id="@item.Id" data-name="@item.Name">Delete</button>
             </div>
