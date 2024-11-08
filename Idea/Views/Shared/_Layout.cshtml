@@ -19,16 +19,16 @@
         }
 
         .sidebar .nav-link:hover {
-        opacity: 1;
-        transform: scale(1.1);
-        background-color: rgba(0, 123, 255, 0.1);
-        box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+            opacity: 1;
+            transform: scale(1.1);
+            background-color: rgba(0, 123, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
         }
 
         .sidebar .nav-link.active {
-        opacity: 1;
-        font-weight: bold;
-        background-color: rgba(0, 123, 255, 0.2);
+            opacity: 1;
+            font-weight: bold;
+            background-color: rgba(0, 123, 255, 0.2);
         } 
     </style>
 </head>
@@ -41,6 +41,7 @@
                         <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")" 
                            asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
+
                     @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                     {
                         <li class="nav-item">
@@ -64,10 +65,14 @@
                                asp-area="" asp-controller="Role" asp-action="Index">Manage Role</a>
                         </li>
                     }
-                    <li class="nav-item">
-                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Submission" ? "active" : "")" 
-                           asp-area="" asp-controller="Submission" asp-action="Index">Staff Submission</a>
-                    </li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Submission" ? "active" : "")" 
+                               asp-area="" asp-controller="Submission" asp-action="Index">Staff Submission</a>
+                        </li>
+                    }
                 </ul>
             </div>
 
